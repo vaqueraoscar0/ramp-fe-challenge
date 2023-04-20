@@ -29,6 +29,8 @@ export function InputSelect<TItem>({
     },
     [consumerOnChange]
   )
+  
+  
 
   return (
     <Downshift<TItem>
@@ -49,6 +51,7 @@ export function InputSelect<TItem>({
       }) => {
         const toggleProps = getToggleButtonProps()
         const parsedSelectedItem = selectedItem === null ? null : parseItem(selectedItem)
+        
 
         return (
           <div className="RampInputSelect--root">

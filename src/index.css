@@ -92,12 +92,12 @@ hr.RampBreak--l {
 
 .RampInputSelect--dropdown-container {
   display: none;
-  position: fixed;
+  position: absolute;
   width: 100%;
   max-width: 700px;
   border: 1px solid var(--color-darker-shade);
   margin-top: 0.5rem;
-  max-height: 16rem;
+  max-height: 10rem;
   overflow: auto;
   box-shadow: rgb(0 0 0 / 10%) 0px 0px 1px, rgb(0 0 0 / 13%) 0px 4px 8px;
 }
@@ -150,7 +150,11 @@ hr.RampBreak--l {
 }
 
 .RampInputCheckbox--input {
-  display: none;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .RampButton {
@@ -162,6 +166,7 @@ hr.RampBreak--l {
 
 .RampButton:hover {
   background-color: var(--color-lighter-shade);
+  height: 100%;
 }
 
 .RampButton:disabled {

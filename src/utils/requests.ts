@@ -33,6 +33,8 @@ export const getTransactionsPaginated = ({
 
   const nextPage = end < data.transactions.length ? page + 1 : null
 
+  // console.log('getTransactionsPaginated', data.transactions.slice(start,end), nextPage)
+
   return {
     nextPage,
     data: data.transactions.slice(start, end),
@@ -57,4 +59,6 @@ export const setTransactionApproval = ({ transactionId, value }: SetTransactionA
   }
 
   transaction.approved = value
+  // console.log("setTransactionApproval", data.transactions)
+  
 }

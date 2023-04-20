@@ -18,16 +18,19 @@ export function App() {
     () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
     [paginatedTransactions, transactionsByEmployee]
   )
+  
 
   const loadAllTransactions = useCallback(async () => {
     setIsLoading(true)
     transactionsByEmployeeUtils.invalidateData()
-
+  
     await employeeUtils.fetchAll()
-    await paginatedTransactionsUtils.fetchAll()
-
     setIsLoading(false)
+    
+    await paginatedTransactionsUtils.fetchAll()
+    
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
+
 
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
@@ -37,11 +40,15 @@ export function App() {
     [paginatedTransactionsUtils, transactionsByEmployeeUtils]
   )
 
-  useEffect(() => {
+  useEffect(()=> {
     if (employees === null && !employeeUtils.loading) {
       loadAllTransactions()
     }
+
+    
   }, [employeeUtils.loading, employees, loadAllTransactions])
+
+  // console.log(transactionsByEmployee, paginatedTransactions, 'employee')  
 
   return (
     <Fragment>
@@ -63,9 +70,13 @@ export function App() {
           onChange={async (newValue) => {
             if (newValue === null) {
               return
+            }else if(newValue.id === ''){
+              await loadAllTransactions()
+              return
             }
-
+            
             await loadTransactionsByEmployee(newValue.id)
+            
           }}
         />
 
@@ -78,6 +89,7 @@ export function App() {
             <button
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading}
+              style={{visibility: paginatedTransactions?.nextPage === null || transactionsByEmployee ? 'hidden': 'visible'}}
               onClick={async () => {
                 await loadAllTransactions()
               }}
